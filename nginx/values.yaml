@@ -3,6 +3,6 @@ name:
   label: nginx
 image:
   repository: 740561009084.dkr.ecr.us-east-1.amazonaws.com/aula-formacao-ci-cd
-  tag: 
+  tag: teste
 service:
   type: ClusterIp
