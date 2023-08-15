@@ -1,0 +1,33 @@
+name: ci
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+      - master
+
+run-name: Running CI Aula ElvenWorks 🚀
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Git Cache 
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Testes Unitarios
+        run: echo "Os testes unitários são usados para verificar a funcionalidade correta de unidades de código individuais, como funções, métodos ou classes."
+
+      - name: Testes de Segurança
+        run: echo "Os testes de segurança, por outro lado, são projetados para identificar vulnerabilidades e falhas de segurança em um sistema."
+
+      - name: Sonar
+        run: echo "O Sonar é uma ferramenta de análise estática de código que ajuda a identificar problemas e melhorias potenciais no código-fonte."
