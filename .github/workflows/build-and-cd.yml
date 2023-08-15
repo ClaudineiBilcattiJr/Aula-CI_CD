@@ -49,6 +49,5 @@ jobs:
         propertyPath: 'image.tag'
         value: ${{ steps.time.outputs.time }}-${{ github.sha }}
         commitChange: true
-        updateFile: true
         message: 'Update Image Tag Version to ${{ steps.time.outputs.time }}-${{ github.sha }}'
 
