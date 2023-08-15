@@ -5,7 +5,7 @@ on:
     - main
     - master
 
-run-name: Running Build and CD Aula ElvenWorks 🚀🚀
+run-name: Running Build and CD Aula ElvenWorks 🚀🚀🚀
 
 jobs:
   build-and-CD:
