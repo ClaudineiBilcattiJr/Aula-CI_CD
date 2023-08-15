@@ -3,6 +3,6 @@ name:
   label: nginx
 image:
   repository: 740561009084.dkr.ecr.us-east-1.amazonaws.com/aula-formacao-ci-cd
-  tag: main-2023-08-15-19-52-18-915a20de2532b2cdb370df8062f47f35c8562b0e
+  tag: main-2023-08-15-19-52-18-915a20de2532b2cdb370df8062f47f35c856
 service:
   type: ClusterIp
