@@ -3,6 +3,6 @@ name:
   label: nginx
 image:
   repository: nginx
-  tag: main-2023-08-15-19-43-12-eebeefebbb5229e03360b5ac5427daa5ca337426
+  tag: main-2023-08-15-19-43-52-cdffa121eb92504c634dd8ea42722c18b25de43a
 service:
   type: ClusterIp
