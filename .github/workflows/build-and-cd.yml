@@ -43,7 +43,7 @@ jobs:
         docker build -f ${{ secrets.FILE_PATH_ORIGIN }}  -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
 
-    - name: Update Image Version in the related HelmChart values.yaml
+    - name: Update Image Version in the related HelmChart nginx values.yaml
       uses: fjogeleit/yaml-update-action@main
       with:
         valueFile: ${{ secrets.FILE_PATH }}
