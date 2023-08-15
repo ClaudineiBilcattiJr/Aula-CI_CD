@@ -50,6 +50,6 @@ jobs:
         propertyPath: 'image.tag'
         value: main-${{ steps.time.outputs.time }}-${{ github.sha }}
         branch: main
-        commitChange: true
+        commitChange: false
         message: 'Update Image Tag Version to main-${{ steps.time.outputs.time }}-${{ github.sha }}'
         token: ${{ secrets.TOKEN_HELM }}
