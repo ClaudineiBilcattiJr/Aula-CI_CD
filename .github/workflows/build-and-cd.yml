@@ -2,8 +2,8 @@ name: build-and-cd
 on:
   push:
     branches:
-      - main
-      - master
+    - main
+    - master
 
 run-name: Running Build and CD Aula ElvenWorks 🚀🚀
 
@@ -39,16 +39,16 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:${{ steps.time.outputs.time }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/aula-formacao:${{ steps.time.outputs.time }}
 
     - name: Update Image Version in the related HelmChart values.yaml
       uses: fjogeleit/yaml-update-action@main
       with:
+        branch: main
         valueFile: 'meu-chart/values.yaml'
         propertyPath: 'image.tag'
         value: ${{ steps.time.outputs.time }}-${{ github.sha }}
-        branch: main
+        commitChange: true
         updateFile: true
-        commitChange: false
         message: 'Update Image Tag Version to ${{ steps.time.outputs.time }}-${{ github.sha }}'
 
