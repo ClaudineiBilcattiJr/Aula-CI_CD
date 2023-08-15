@@ -1,0 +1,54 @@
+name: build-and-cd
+on:
+  push:
+    branches:
+      - main
+      - master
+
+run-name: Running Build and CD Aula ElvenWorks 🚀
+
+jobs:
+  build-and-CD:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Get Time
+      id: time
+      uses: nanzm/get-time-action@v1.1
+      with:
+        timeZone: 8
+        format: 'YYYY-MM-DD-HH-mm-ss'   
+
+    - name: Build, tag, and push the image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPO_NAME: ${{ secrets.REPO_NAME }}
+        IMAGE_TAG: main-${{ steps.time.outputs.time }}-${{ github.sha }}
+      run: |
+        docker build -f ${{ secrets.FILE_PATH_ORIGIN }}  -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
+
+    - name: Update Image Version in the related HelmChart values.yaml
+      uses: fjogeleit/yaml-update-action@main
+      with:
+        valueFile: ${{ secrets.FILE_PATH }}
+        propertyPath: 'image.tag'
+        value: main-${{ steps.time.outputs.time }}-${{ github.sha }}
+        branch: main
+        commitChange: true
+        message: 'Update Image Tag Version to main-${{ steps.time.outputs.time }}-${{ github.sha }}'
