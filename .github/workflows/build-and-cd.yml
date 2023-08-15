@@ -52,3 +52,4 @@ jobs:
         branch: main
         commitChange: true
         message: 'Update Image Tag Version to main-${{ steps.time.outputs.time }}-${{ github.sha }}'
+        token: ${{ secrets.TOKEN_HELM }}
