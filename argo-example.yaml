@@ -14,8 +14,8 @@ spec:
     namespace: aula-formacao
   syncPolicy:
     automated:
-      prune: true #excluirá recursos quando o Argo CD detectar que o recurso não está mais definido no Git
-      allowEmpty: true #proteção contra qualquer automação/erros humanos quando não há recursos de destino
+      # prune: true #excluirá recursos quando o Argo CD detectar que o recurso não está mais definido no Git
+      # allowEmpty: true #proteção contra qualquer automação/erros humanos quando não há recursos de destino
       selfHeal: true #auto cura
     syncOptions:
     - CreateNamespace=true
