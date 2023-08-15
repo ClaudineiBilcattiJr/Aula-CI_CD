@@ -11,24 +11,21 @@ jobs:
   build-and-CD:
     runs-on: ubuntu-latest
 
-    permissions:
-      id-token: write
-      contents: read
-      issues: write
-      pull-requests: write
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-
     - name: Get Time
       id: time
       uses: nanzm/get-time-action@v1.1
       with:
         timeZone: 8
-        format: 'YYYY-MM-DD-HH-mm-ss'   
-
+        format: 'mm.ss'
+    - name: Usage
+      env:
+        TIME: "${{ steps.time.outputs.time }}"
+      run: |
+        echo $TIME  
+        
+    - uses: actions/checkout@v3
+    
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
 
@@ -53,7 +50,8 @@ jobs:
         branch: main
         valueFile: 'meu-chart/values.yaml'
         propertyPath: 'image.tag'
-        value: ${{ steps.time.outputs.time }}-${{ github.sha }}
+        value: ${{ steps.time.outputs.time }}
         commitChange: true
+        updateFile: true
         message: 'Update Image Tag Version to ${{ steps.time.outputs.time }}-${{ github.sha }}'
 
